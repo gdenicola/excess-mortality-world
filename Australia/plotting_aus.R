@@ -1,0 +1,72 @@
+#clear environment
+rm(list=ls())
+
+#set directory to current file location
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+#set R system language to english
+Sys.setenv(LANG = "en")
+
+#load necessary packages
+library(ggpubr)
+library(tidyverse)
+library(readxl)
+
+#import expected mortality for Australia (produced with "expected_country.R"):
+exp.Australia.avg <- read.table("Data/Data_Australia_avg")
+exp.Australia.2015 <- read.table("Data/Data_Australia_2015")
+exp.Australia.2019 <- read.table("Data/Data_Australia_2019")
+
+
+#preprocess data for plotting with ggplot
+exp.Australia.avg.grouped <- group_by(exp.Australia.avg,year)
+exp.Australia.avg.grouped <- summarise(exp.Australia.avg.grouped,sum(expected))
+
+exp.Australia.2015.grouped <- group_by(exp.Australia.2015,year)
+exp.Australia.2015.grouped <- summarise(exp.Australia.2015.grouped,sum(expected))
+
+exp.Australia.2019.grouped <- group_by(exp.Australia.2019,year)
+exp.Australia.2019.grouped <- summarise(exp.Australia.2019.grouped,sum(expected))
+
+
+
+
+#input observed mortality figures by year (2015 to 2021):
+#ist.tod.abs <- c(159052,158504,160909,158493,169301,161300,171469) 
+#source: Australia Bureau of Statistics, Deaths, Australia 2021
+#https://www.abs.gov.au/statistics/people/population/deaths-australia/latest-release
+
+ist.tod <- c(157292,158607,164330,159425,164731,162566,171469) 
+# source: hmd
+
+
+
+
+#build the long-format dataframe for plotting
+Year <-  seq(2015,2021,by=1)
+
+df_all_ungrouped <- cbind.data.frame(Year,Expected = exp.Australia.avg.grouped$`sum(expected)`,
+                                 exp.upper = exp.Australia.2015.grouped$`sum(expected)`,
+                                 exp.lower = exp.Australia.2019.grouped$`sum(expected)`
+            )
+df_long <- pivot_longer(df_all_ungrouped,cols = 2:4, 
+                        names_to = "type", values_to = "expected")
+
+
+#produce plot
+plot_Australia <- ggplot(df_all_ungrouped, aes(Year)) + 
+    geom_line(aes(y=Expected), size = 2,linetype = "longdash", col="#619CFF") +
+    geom_point(aes(y=Expected), size = 5,shape=15, col="#619CFF") + 
+    geom_ribbon(aes(ymin=exp.upper, ymax=exp.lower), fill="#619CFF", alpha=0.2) +
+    geom_point(y=ist.tod,col="black",size = 7) +
+    theme_pubr(base_size = 20) +
+    ggtitle("Expected versus observed yearly deaths - Australia") +
+    scale_y_continuous(breaks = seq(140000,200000, 10000),limits = c(137350,196025)) +
+    scale_x_continuous(breaks = seq(2015,2021,1),limits = c(2015,2021)) 
+
+#view plot
+plot_Australia
+
+#save plot in directory
+ggsave("Australia.png",width = 10,height = 7)
+
