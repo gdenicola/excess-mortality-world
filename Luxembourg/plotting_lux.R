@@ -64,3 +64,25 @@ plot_Luxembourg
 #save plot in directory
 ggsave("Luxembourg.png",width = 10,height = 7)
 
+
+
+######## CALCULATING EXCESS MORTALITY #############
+
+#Calculate % excess 2020:
+(expected_2020 <- df_long$expected[16])
+(observed_2020 <- ist.tod[6])
+(excess_2020 <- observed_2020 - expected_2020)
+(percentage_2020 <- excess_2020 / expected_2020)
+
+#Calculate % excess 2021:
+(expected_2021 <- df_long$expected[19])
+(observed_2021 <- ist.tod[7])
+(excess_2021 <- observed_2021 - expected_2021)
+(percentage_2021 <- excess_2021 / expected_2021)
+
+#Calculate % excess overall:
+(expected <- expected_2020 + expected_2021)
+(observed <- observed_2020 + observed_2021)
+(excess <- observed - expected)
+(percentage <- excess / expected)
+
