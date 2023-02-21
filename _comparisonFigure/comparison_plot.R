@@ -11,7 +11,7 @@ comparison_table <- comparison_table[order(comparison_table$`De Nicola`),]
 
 #format table and variables for ggplot
 table_long <- pivot_longer(comparison_table,cols = 2:7, names_to = "Method", values_to = "Excess")
-table_long$Method <- factor(table_long$Method, levels = c("De Nicola", "Levitt", "Economist", "WMD", "IHME", "WHO"))
+table_long$Method <- factor(table_long$Method, levels = c("De Nicola", "Levitt", "Economist", "IHME", "WMD", "WHO"))
 table_long$Country <- factor(table_long$Country, levels = comparison_table$Country)
 
 
