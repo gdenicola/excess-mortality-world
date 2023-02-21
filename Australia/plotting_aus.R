@@ -75,6 +75,9 @@ ggsave("Australia.png",width = 10,height = 7)
 
 ######## CALCULATING EXCESS MORTALITY #############
 
+
+## AVERAGE 2015-2019 ##
+
 #Calculate % excess 2020:
 (expected_2020 <- df_long$expected[16])
 (observed_2020 <- ist.tod[6])
@@ -94,4 +97,44 @@ ggsave("Australia.png",width = 10,height = 7)
 (percentage <- excess / expected)
 
 
+## LOWER BOUND ##
+
+#Calculate % excess 2020:
+(upper_2020 <- df_long$expected[17])
+(observed_2020 <- ist.tod[6])
+(lower_excess_2020 <- observed_2020 - upper_2020)
+(percentage_lower_2020 <- lower_excess_2020 / upper_2020)
+
+#Calculate % excess 2021:
+(upper_2021 <- df_long$expected[20])
+(observed_2021 <- ist.tod[7])
+(lower_excess_2021 <- observed_2021 - upper_2021)
+(percentage_lower_2021 <- lower_excess_2021 / upper_2021)
+
+#Calculate % excess overall:
+(upper_expected <- upper_2020 + upper_2021)
+(observed <- observed_2020 + observed_2021)
+(lower_excess <- observed - upper_expected)
+(percentage_lower <- lower_excess / upper_expected)
+
+
+## UPPER BOUND ##
+
+#Calculate % excess 2020:
+(lower_2020 <- df_long$expected[18])
+(observed_2020 <- ist.tod[6])
+(upper_excess_2020 <- observed_2020 - lower_2020)
+(percentage_upper_2020 <- upper_excess_2020 / lower_2020)
+
+#Calculate % excess 2021:
+(lower_2021 <- df_long$expected[21])
+(observed_2021 <- ist.tod[7])
+(upper_excess_2021 <- observed_2021 - lower_2021)
+(percentage_upper_2021 <- upper_excess_2021 / lower_2021)
+
+#Calculate % excess overall:
+(lower_expected <- lower_2020 + lower_2021)
+(observed <- observed_2020 + observed_2021)
+(upper_excess <- observed - lower_expected)
+(percentage_upper <- upper_excess / lower_expected)
 
