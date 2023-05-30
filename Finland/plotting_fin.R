@@ -39,7 +39,7 @@ ist.tod <- c(52492, 53923, 53722, 54527, 53949, 55488, 57659)
 #build the long-format dataframe for plotting
 Year <-  seq(2015,2021,by=1)
 
-df_all_ungrouped <- cbind.data.frame(Year,Expected = exp.Finland.avg.grouped$`sum(expected)`,
+df_all_ungrouped <- cbind.data.frame(Year,Deaths = exp.Finland.avg.grouped$`sum(expected)`,
                                  exp.upper = exp.Finland.2016.grouped$`sum(expected)`,
                                  exp.lower = exp.Finland.2019.grouped$`sum(expected)`
             )
@@ -49,8 +49,8 @@ df_long <- pivot_longer(df_all_ungrouped,cols = 2:4,
 
 #produce plot
 plot_Finland <- ggplot(df_all_ungrouped, aes(Year)) + 
-    geom_line(aes(y=Expected), size = 2,linetype = "longdash", col="#619CFF") +
-    geom_point(aes(y=Expected), size = 5,shape=15, col="#619CFF") + 
+    geom_line(aes(y=Deaths), size = 2,linetype = "longdash", col="#619CFF") +
+    geom_point(aes(y=Deaths), size = 5,shape=15, col="#619CFF") + 
     geom_ribbon(aes(ymin=exp.upper, ymax=exp.lower), fill="#619CFF", alpha=0.2) +
     geom_point(y=ist.tod,col="black",size = 7) +
     theme_pubr(base_size = 20) +

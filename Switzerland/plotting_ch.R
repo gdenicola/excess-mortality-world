@@ -39,7 +39,7 @@ ist.tod <- c(67606, 64964, 66971, 67088, 67780, 76195, 71192)
 #build the long-format dataframe for plotting
 Year <-  seq(2015,2021,by=1)
 
-df_all_ungrouped <- cbind.data.frame(Year,Expected = exp.Switzerland.avg.grouped$`sum(expected)`,
+df_all_ungrouped <- cbind.data.frame(Year,Deaths = exp.Switzerland.avg.grouped$`sum(expected)`,
                                  exp.upper = exp.Switzerland.2015.grouped$`sum(expected)`,
                                  exp.lower = exp.Switzerland.2019.grouped$`sum(expected)`
             )
@@ -49,8 +49,8 @@ df_long <- pivot_longer(df_all_ungrouped,cols = 2:4,
 
 #produce plot
 plot_Switzerland <- ggplot(df_all_ungrouped, aes(Year)) + 
-    geom_line(aes(y=Expected), size = 2,linetype = "longdash", col="#619CFF") +
-    geom_point(aes(y=Expected), size = 5,shape=15, col="#619CFF") + 
+    geom_line(aes(y=Deaths), size = 2,linetype = "longdash", col="#619CFF") +
+    geom_point(aes(y=Deaths), size = 5,shape=15, col="#619CFF") + 
     geom_ribbon(aes(ymin=exp.upper, ymax=exp.lower), fill="#619CFF", alpha=0.2) +
     geom_point(y=ist.tod,col="black",size = 7) +
     theme_pubr(base_size = 20) +
