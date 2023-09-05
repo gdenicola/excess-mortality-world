@@ -32,10 +32,14 @@ exp.Canada.2019.grouped <- summarise(exp.Canada.2019.grouped,sum(expected))
 
 
 #input observed mortality figures by year (2015 to 2021):
-ist.tod <- c(264333, 267213, 278298, 285675, 285270, 307205,312006)
-#source: statistics canada
+#ist.tod <- c(264333, 267213, 278298, 285675, 285270, 307205,312006)
+ist.tod <- c(264333, 267213, 278298, 285704, 285301, 308412, 311640)
+#old source: statistics canada
 # 2015-2020: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310070901
 #2021: https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1310078401 (using weeks 1-52 of 2021 + 1/7 of week 53, 2020)
+
+#new source: statistics canada (updated), 2015-2021
+# https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310070801
 
 
 
