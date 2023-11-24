@@ -10,6 +10,8 @@ rm(list=ls()) # clear environment
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(scales)
+library(readxl)
+library(ggplot2)
 
 excess_table <- read_excel("excess_table.xlsx")
 
@@ -23,8 +25,8 @@ world <- as.data.frame(world)
 #rename to match names in "world"
 
 #for scale = small
-excess_table$Country[27] <- "United Kingdom"
-excess_table$Country[28] <- "United States of America"
+excess_table$Country[29] <- "United Kingdom"
+excess_table$Country[30] <- "United States of America"
 excess_table$Country[7] <- "Czech Republic"
 
 
@@ -35,8 +37,10 @@ excess_table$Country[7] <- "Czech Republic"
 # excess_table$Country[23] <- "Korea"
 
 
-#remove Hong Kong
+#remove Hong Kong and Taiwan
 excess_table <- excess_table[-12,]
+#excess_table <- excess_table[-28,]
+
 
 #add column for excess
 world$excess <- rep( NA , length(world$sovereignt))

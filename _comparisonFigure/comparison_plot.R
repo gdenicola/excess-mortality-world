@@ -34,7 +34,7 @@ ggplot(table_long, aes(fct_rev(Country), Excess)) +
   scale_fill_manual(values= colours) +
   scale_y_continuous(labels = scales::percent, breaks = c(-0.15,-0.10, -0.05, 0.00, 0.05, 0.10, 0.15, 0.20, 0.25)) 
 
-ggsave("_comparison.pdf",width = 10, height = 14.5)
+ ggsave("_comparison.pdf",width = 10, height = 14.5)
 
 
 
