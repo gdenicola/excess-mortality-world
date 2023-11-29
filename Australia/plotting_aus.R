@@ -32,13 +32,7 @@ exp.Australia.2019.grouped <- summarise(exp.Australia.2019.grouped,sum(expected)
 
 
 #input observed mortality figures by year (2015 to 2021):
-#ist.tod.abs <- c(159052,158504,160909,158493,169301,161300,171469) 
-#source: Australia Bureau of Statistics, Deaths, Australia 2021
-#https://www.abs.gov.au/statistics/people/population/deaths-australia/latest-release
-
-ist.tod <- c(157292,158607,164330,159425,164731,162566,171469) 
-# source: hmd
-
+ist.tod <- c(159052,158504,160909,158493,169301,161300,171469)
 
 
 
@@ -53,23 +47,23 @@ df_long <- pivot_longer(df_all_ungrouped,cols = 2:4,
                         names_to = "type", values_to = "expected")
 
 
-
 #produce plot
-plot_Australia <- ggplot(df_all_ungrouped, aes(Year)) + 
+p_Australia <- ggplot(df_all_ungrouped, aes(Year)) + 
     geom_line(aes(y=Deaths), size = 2,linetype = "longdash", col="#619CFF") +
     geom_point(aes(y=Deaths), size = 5,shape=15, col="#619CFF") + 
     geom_ribbon(aes(ymin=exp.upper, ymax=exp.lower), fill="#619CFF", alpha=0.2) +
     geom_point(y=ist.tod,col="black",size = 7) +
     theme_pubr(base_size = 20) +
     ggtitle("Expected versus observed yearly deaths - Australia") +
-    scale_y_continuous(breaks = seq(140000,200000, 10000),limits = c(137350,196025)) +
-    scale_x_continuous(breaks = seq(2015,2021,1),limits = c(2015,2021)) 
+  scale_y_continuous(breaks = seq(140000,200000, 10000),limits = c(137350,196025)) +
+  scale_x_continuous(breaks = seq(2015,2021,1),limits = c(2015,2021)) 
 
 #view plot
-plot_Australia
+p_Australia
 
 #save plot in directory
 ggsave("Australia.png",width = 10,height = 7)
+
 
 
 
@@ -137,4 +131,6 @@ ggsave("Australia.png",width = 10,height = 7)
 (observed <- observed_2020 + observed_2021)
 (upper_excess <- observed - lower_expected)
 (percentage_upper <- upper_excess / lower_expected)
+
+
 

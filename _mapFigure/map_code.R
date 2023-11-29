@@ -16,8 +16,8 @@ library(ggplot2)
 excess_table <- read_excel("excess_table.xlsx")
 
 #get world map
-world <- ne_countries(scale = "small", returnclass = "sf") #for stylyzed map
-#world <- ne_countries(scale = "medium", returnclass = "sf") #for realistic map
+#world <- ne_countries(scale = "small", returnclass = "sf") #for stylyzed map
+world <- ne_countries(scale = "medium", returnclass = "sf") #for realistic map
 
 world <- as.data.frame(world)
 
@@ -25,35 +25,36 @@ world <- as.data.frame(world)
 #rename to match names in "world"
 
 #for scale = small
-excess_table$Country[29] <- "United Kingdom"
-excess_table$Country[30] <- "United States of America"
-excess_table$Country[7] <- "Czech Republic"
+# excess_table$Country[29] <- "United Kingdom"
+# excess_table$Country[30] <- "United States of America"
+# excess_table$Country[7] <- "Czech Republic"
 
 
 #for scale = medium
-# excess_table$Country[27] <- "United Kingdom"
-# excess_table$Country[28] <- "United States"
-# excess_table$Country[7] <- "Czech Rep."
-# excess_table$Country[23] <- "Korea"
+excess_table$Country[29] <- "United Kingdom"
+excess_table$Country[30] <- "United States"
+excess_table$Country[7] <- "Czech Rep."
+excess_table$Country[24] <- "Korea"
 
 
 #remove Hong Kong and Taiwan
 excess_table <- excess_table[-12,]
-#excess_table <- excess_table[-28,]
+excess_table <- excess_table[-27,]
 
 
 #add column for excess
 world$excess <- rep( NA , length(world$sovereignt))
 
 #match values
-index <- match(excess_table$Country,world$name_en) # for scale = "small"
-#index <- match(excess_table$Country,world$name) # for scale = "medium"
+#index <- match(excess_table$Country,world$name_en) # for scale = "small"
+index <- match(excess_table$Country,world$name) # for scale = "medium"
 
 #include values
 world$excess[index] <- excess_table$`%Excess`
 
 
 europe <- world[world$continent=="Europe"&world$admin!="Russia",]
+#CHANGE THIS TO SELECT COUNTRIES TO SHOW
 
 
 
@@ -80,4 +81,4 @@ ggplot(data = europe, aes(geometry = geometry)) +
             axis.title.y=element_blank()) 
 
 
-ggsave("_map_stylyzed.pdf", width = 11, height = 6, units = "in") #save as pdf
+ggsave("_map_realistic.pdf", width = 11, height = 6, units = "in") #save as pdf
