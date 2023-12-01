@@ -12,6 +12,8 @@ Sys.setenv(LANG = "en")
 library(gdata)
 library(readxl)
 library(dplyr)
+library(readr)
+
 
 lifeTables <- read_table("Data/jap_yearly.txt", skip = 1)
 

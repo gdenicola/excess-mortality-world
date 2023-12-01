@@ -12,6 +12,8 @@ Sys.setenv(LANG = "en")
 library(gdata)
 library(readxl)
 library(dplyr)
+library(readr)
+
 
 lifeTables <- read_table("Data/fra_yearly.txt", skip = 1)
 
